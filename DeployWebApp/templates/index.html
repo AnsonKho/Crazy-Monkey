@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Random Advice Slip</title>
+    <!-- Adding Favicon -->
+    <link rel="shortcut icon" type="image/png" href="http://www.iconarchive.com/download/i24317/martin-berube/animal/monkey.ico">
+    <!-- Link reference font -->
+    <link href='https://fonts.googleapis.com/css?family=Happy Monkey' rel='stylesheet'>
+
+
+    <!-- Using Axios to call for API -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- Adding stylesheet -->
+    <style>
+      body{
+        background: #1abc9c;
+      }
+      h1{
+        font-family: 'Happy Monkey';
+        color: #fff;
+        text-align: center;
+      }
+      *{
+        -webkit-box-sizing:border-box;
+        -moz-box-sizing:border-box;
+        box-sizing:border-box;
+      }
+      body{
+        background: url(https://i.imgur.com/MQB99sg.jpg) #a9b89e;
+        font-family:Arial;
+        font-size:12px;
+        color:#C4BCB0;
+      }
+      .main-form{
+        width:350px;
+        margin: 100px auto;
+        padding:50px;
+        border: 1px solid rgba(0,0,0,0.1);
+        -webkit-box-shadow:0 1px 2px rgba(0,0,0,0.2);
+        background:#fff;
+      }
+
+      }
+      .main-form > label{
+        display:block;
+        margin:10px 0 15px;
+        line-height:15px;
+        cursor:pointer;
+      }
+      .main-form > div{
+        margin-top:20px;
+      }
+      a{
+        color:#C4BCB0;
+        text-decoration:none;
+      }
+      .main-form > a{
+        font-size:11px;
+        display:block;
+        text-align:center;
+        margin:10px 0;
+      }
+      .main-form > div >a:first-child{
+        font-weight:bold;
+      }
+      .main-form > div >a:nth-child(2){
+        border:1px solid #3DA087;
+        display:inline-block;
+        border-radius:3px;
+        color:#3DA087;
+        font-weight:bold;
+        padding:7px 15px;
+        margin-left:28px;
+        -webkit-transition:all 0.3s;
+        -moz-transition:all 0.3s;
+        transition:all 0.3s;
+      }
+      .main-form > div >a:nth-child(2):hover{
+        background:#3DA087;
+        color:#fff;
+      }
+      #submit_button{
+        display:block;
+        padding:10px;
+        background:#50BFA4;
+        border:0;
+        border-radius:3px;
+        font-weight:bold;
+        width:100%;
+        color:#fff;
+        cursor:-webkit-grab; cursor:grab;
+        -webkit-transition:all 0.3s;
+        -moz-transition:all 0.3s;
+        transition:all 0.3s;
+        margin-top:5px;
+      }
+      #refreshButton{
+        display:block;
+        padding:10px;
+        background:RosyBrown;
+        border:0;
+        border-radius:3px;
+        font-weight:bold;
+        margin-top:5px;
+        width:100%;
+        color:#fff;
+        cursor:-webkit-grab; cursor:grab;
+        -webkit-transition:all 0.3s;
+        -moz-transition:all 0.3s;
+        transition:all 0.3s;
+      }
+      #userName{
+        white-space: pre;
+        background:#EAE6E1;
+        border:0;
+        font-weight:bold;
+        padding:10px;
+        border-radius:3px;
+        width:100%;
+        margin:5px 0;
+        outline:medium none;
+        color:DarkViolet;
+        text-align:center;
+      }
+      #userOutput
+      {
+        background:#EAE6E1;
+        border:0;
+        font-weight:bold;
+        padding:10px;
+        border-radius:3px;
+        width:100%;
+        margin:5px 0;
+        outline:medium none;
+        color: DarkSlateBlue;
+        text-align:center;
+      }
+      div.c{
+        text-transform: capitalize;
+      }
+      textArea{
+        resize:none;
+        width:250px;
+        height:100px;
+        background:#EAE6E1;
+        border:0;
+        font-weight:bold;
+        margin-top:5px;
+        text-align:center;
+      }
+      #luckyNumber{
+        resize:none;
+        width:250px;
+        height:25px;
+        background:#EAE6E1;
+        border:0;
+        font-weight:bold;
+        margin-top:5px;
+        text-align:center;
+      }
+    </style>
+
+
+  </head>
+
+
+
+  <body>
+      <h1> Random Monkey Advice Slip </h1>
+      <div class="main-form">
+      <i class="logo"></i>
+
+      <!-- Monkey logo -->
+      <center>
+      <img src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/1154227/910/607/m1/fpnw/wm0/cool-monkey-.png?1459925849&s=3709b139a6f0b2d2f02d9c9c422ae92e"
+      alt="Cool Monkey" title="Be nice to Monkeys!" width="150">
+      </center>
+
+      <!-- Form Action -->
+      <form action="/action.php">
+      <input type="text" id="userName" placeholder="Your Name"> <!-- Username -->
+      <input type="text" style="width:100%" id="userOutput" placeholder="Greetings!" readonly > <!-- Greetings to end user -->
+      <textarea disabled id="textArea" placeholder="Your Monkey Quotes"></textarea> <!-- show user monkey quotes -->
+      <textarea disabled id="luckyNumber" placeholder="Your Monkey Number"></textarea> <!-- Money quotes -->
+      </form>
+
+
+
+
+    <!-- Creation of submit button -->
+    <button onclick="submitFunction()"id="submit_button"> Monkey Request </button>
+    <!-- Creation of refresh button -->
+    <button onClick="refreshFunction()"id="refreshButton">Monkey Refresh </button>
+
+
+  </div>
+  </body>
+
+
+  <script>
+    var greetings=[
+    "Hello!","Ciao!","Welcome!","Hola!","Hey!","Good Day!","Salute!","Bonjour!","Hai!","Kónnichi wa!","Selamat petang!",
+    "Goeie dag!","Tungjatjeta!","Ahlan bik!","Nomoskar!","Selam!","Mingala ba!","Zdravo!","Nazdar!","Hei!","Shalóm!","Namasté!",
+    "Szia!","你好!"
+    ]
+
+  function refreshFunction(){
+    location.reload();
+  }
+
+  function submitFunction(){
+    console.log("Button is working")
+    axios({
+        method:"GET",
+        url:"https://api.adviceslip.com/advice"
+    })
+    .then(function(response){
+      //Generate random greetings
+      var greeting_id = Math.floor(Math.random() * greetings.length);
+      var final_greetings = greetings[greeting_id];
+
+      var userName = document.getElementById("userName").value;
+
+      //Caps first letter of user name
+      var capName = userName.charAt(0).toUpperCase() + userName.slice(1)
+      var userOutput = document.getElementById("userOutput").value = final_greetings + " " + capName;
+
+      //Getting Advice from API
+      monkey_advice = (response['data']['slip']['advice'])
+
+      //Getting slip_id from api
+      monkey_id = (response['data']['slip']['slip_id'])
+
+      //Inserting into monkey quotes
+      document.getElementById("textArea").value = monkey_advice;
+
+      //Inserting into monkey lucky Number
+      document.getElementById("luckyNumber").value = monkey_id;
+    })
+
+  }
+  </script>
+
+
+</html>
